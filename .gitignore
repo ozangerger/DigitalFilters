@@ -357,3 +357,4 @@ LowPassFilter/LowPassFilter.sln
 *.sln
 *.vcxproj
 *.filters
+*.csv
