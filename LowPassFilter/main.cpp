@@ -13,7 +13,7 @@ int main()
     float w_c = (float)10.0 * (float)2.0 * M_PI;
     LowPassFilter lpf(w_c, tSample);
 
-    int N = 1000;
+    int N = 200;
     vector<float> t(N), outFilter(N), data(N);
 
     ofstream outfile;
