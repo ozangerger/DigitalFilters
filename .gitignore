@@ -351,3 +351,6 @@ MigrationBackup/
 
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
+LowPassFilter/LowPassFilter/LowPassFilter.vcxproj
+LowPassFilter/LowPassFilter/LowPassFilter.vcxproj.filters
+LowPassFilter/LowPassFilter.sln
