@@ -14,7 +14,7 @@ int main()
     float a = (float)0.25;
     NotchFilter nf(w_c, a, tSample);
 
-    int N = 200;
+    int N = 500;
     vector<float> t(N), outFilter(N), data(N);
 
     ofstream outfile;
@@ -23,7 +23,7 @@ int main()
 
     for (int i = 0; i < N; i++)
     {
-        data[i] = (float)2.0 * (float)sin((float)i * tSample * 2 * M_PI * (float)1.0);
+        data[i] = (float)2.0 * (float)sin((float)i * tSample * 2 * M_PI * (float)5.0);
         t[i] = (float)i * tSample;
         nf.update(data[i]);
         outfile << t[i] << "," << data[i] << "," << nf.getFilterOutput() << endl;
