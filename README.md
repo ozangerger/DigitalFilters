@@ -17,13 +17,13 @@ In Figure 6, combination of two discrete sine waves are filtered with hanning fi
 ![Example](/NotchFilter/example_1hz_0p25.png)
 <p align="center">Figure 2: Filtered and unfiltered 1Hz sine signal, filter bandwidth parameter = 0.25 </p>
 
+![Example](/NotchFilter/example_1hz_0p98.png)
+<p align="center">Figure 3: Filtered and unfiltered 1Hz sine signal, filter bandwidth parameter = 0.98 </p>
+
 ![Example](/NotchFilter/example_5hz_0p25.png)
-<p align="center">Figure 3: Filtered and unfiltered 1Hz sine signal, filter bandwidth parameter = 0.25 </p>
+<p align="center">Figure 4: Filtered and unfiltered 5Hz sine signal, filter bandwidth parameter = 0.25 </p>
 
-![Example](/NotchFilter/example_1hz_0p98.png)
-<p align="center">Figure 4: Filtered and unfiltered 5Hz sine signal, filter bandwidth parameter = 0.98 </p>
-
-![Example](/NotchFilter/example_1hz_0p98.png)
+![Example](/NotchFilter/example_5hz_0p98.png)
 <p align="center">Figure 5: Filtered and unfiltered 5Hz sine signal, filter bandwidth parameter = 0.98 </p>
 
 # Hanning Filter Example
