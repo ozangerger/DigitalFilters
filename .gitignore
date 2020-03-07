@@ -354,3 +354,6 @@ MigrationBackup/
 LowPassFilter/LowPassFilter/LowPassFilter.vcxproj
 LowPassFilter/LowPassFilter/LowPassFilter.vcxproj.filters
 LowPassFilter/LowPassFilter.sln
+*.sln
+*.vcxproj
+*.filters
