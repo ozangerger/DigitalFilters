@@ -22,7 +22,9 @@ int main()
 
     for (int i = 0; i < N; i++)
     {
-        data[i] = (float)sin((double)i * 0.1) + (float)2.0 * (float)sin((float)i * 0.1) + (float)0.5 * (float)sin((float)i * 1.0);
+        data[i] = (float)sin((double)i * tSample * 2 * M_PI * (float)1.0) +
+            (float)0.2 * (float)sin((float)i * tSample * 2 * M_PI * (float)30.0) +
+            (float)0.2 * (float)sin((float)i * tSample * 2 * M_PI * (float)10.0);
         t[i] = (float)i * tSample;
         lpf.update(data[i]);
         outfile << t[i] << "," << data[i] << "," << lpf.getFilterOutput() << endl;

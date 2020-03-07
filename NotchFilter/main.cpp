@@ -23,7 +23,7 @@ int main()
 
     for (int i = 0; i < N; i++)
     {
-        data[i] = (float)2.0 * (float)sin((float)i * 0.1);
+        data[i] = (float)2.0 * (float)sin((float)i * tSample * 2 * M_PI * (float)1.0);
         t[i] = (float)i * tSample;
         nf.update(data[i]);
         outfile << t[i] << "," << data[i] << "," << nf.getFilterOutput() << endl;
