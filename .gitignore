@@ -358,3 +358,4 @@ LowPassFilter/LowPassFilter.sln
 *.vcxproj
 *.filters
 *.csv
+/cmake-build-debug/

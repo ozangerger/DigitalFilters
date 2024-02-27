@@ -1,14 +1,16 @@
-#pragma once
+#ifndef HANNING_FILTER_H
+#define HANNING_FILTER_H
+
 class HanningFilter
 {
 public:
-	HanningFilter();
-	~HanningFilter();
-	void update(float input = 0.0);
-	float getFilterOutput();
+	HanningFilter() = default;
+	void Update(float input);
+	float GetOutput();
 
 private:
-	float output;
-	float prevInput;
-	float prevPrevInput;
+	float output{};
+	float prevInputs[2]{};
 };
+
+#endif

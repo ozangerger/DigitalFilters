@@ -4,118 +4,68 @@ using namespace std;
 
 NotchFilter::NotchFilter(float cutoffFreq, float a, float samplingTime)
 {
-	if (cutoffFreq < float(0.0))
-	{
-		wCutoff = float(0.0);
-		cout << "cut-off frequency value of the notch filter must be greater than 0" << endl;
-		cout << "setting cut-off frequency of the notch filter as 0.0" << endl;
-	} else
-	{
-		wCutoff = cutoffFreq;
-	}
-
-	if (samplingTime < float(0.0))
-	{
-		samplingTime = float(0.001);
-		cout << "sampling-time of the notch filter must be greater than 0.0" << endl;
-		cout << "setting sampling-time of the notch filter as 0.001" << endl;
-	} else
-	{
-		tSample = samplingTime;
-	}
-
-	if (a < float(0.001))
-	{
-		aFilter = float(0.001);
-		cout << "bandwidth parameter of the notch filter must be greater than 0.001" << endl;
-		cout << "setting bandwidth parameter of the notch filter as 0.001" << endl;
-	}
-	else if (a > float(0.999))
-	{
-		aFilter = float(0.999);
-		cout << "bandwidth parameter of the notch filter must be less than 0.999" << endl;
-		cout << "setting bandwidth parameter of the notch filter as 0.999" << endl;
-	}
-	else
-	{
-		aFilter = a;
-	}
-
-	output = float(0.0);
-	prevOutput = float(0.0);
-	prevPrevOutput = float(0.0);
-	prevInput = float(0.0);
-	prevPrevInput = float(0.0);
-	wNatural = wCutoff * tSample;
+    this->CheckParams(cutoffFreq, a, samplingTime);
+	this->CalculateWn();
 }
 
-NotchFilter::~NotchFilter()
-{
-
-}
-
-void NotchFilter::update(float input)
+void NotchFilter::Update(float input)
 {
 	//y[k] = (1+a)/2 * [u(k) -2 * cos_w_n * u(k-1) + u(k-2)] + 2 * a * cos_w_n * y(k-1) - a^2 * y(k-2)
-	output = ((float)1.0 + aFilter) / (float)2.0 * (input - (float)2.0 * (float)cos(wNatural) * prevInput + prevPrevInput) 
-		+ 2 * aFilter * (float)cos(wNatural) * prevOutput - (float)pow((double)aFilter, 2.0) * prevPrevOutput;
+	data.output = ((1.0F + params.aFilter) / 2.0F) *
+            (input - 2.0F * cosf(params.wNatural) * data.prevInput[0] + data.prevInput[1]) +
+            2.0F * params.aFilter * cosf(params.wNatural) * data.prevOutput[0]
+            - powf(params.aFilter, 2.0F) * data.prevOutput[1];
 
-	prevPrevOutput = prevOutput;
-	prevOutput = output;
-	prevPrevInput = prevInput;
-	prevInput = input;
+    data.prevOutput[1] = data.prevOutput[0];
+	data.prevOutput[0] = data.output;
+    data.prevInput[1] = data.prevInput[0];
+	data.prevInput[0] = input;
 }
 
-float NotchFilter::getFilterOutput()
+void NotchFilter::Reconfigure(float cutoffFreq, float a, float samplingTime)
 {
-	return(output);
+    this->data = {};
+    this->CheckParams(cutoffFreq, a, samplingTime);
+	this->CalculateWn();
 }
 
-void NotchFilter::reconfigure(float cutoffFreq, float a, float samplingTime)
+void NotchFilter::CheckParams(float cutoffFreq, float a, float samplingTime)
 {
-	if (cutoffFreq < float(0.0))
-	{
-		wCutoff = float(0.0);
-		cout << "cut-off frequency value of the notch filter must be greater than 0.0" << endl;
-		cout << "setting cut-off frequency of the notch filter as 0.0" << endl;
-	}
-	else
-	{
-		wCutoff = cutoffFreq;
-	}
+    if (cutoffFreq < 0.0F) {
+        params.wCutoff = 0.01F;
+        cout << "cut-off frequency value of the notch filter must be greater than 0.0" << endl;
+        cout << "setting cut-off frequency of the notch filter as " << params.wCutoff <<  endl;
+    } else {
+        params.wCutoff = cutoffFreq;
+    }
 
-	if (samplingTime < float(0.001))
-	{
-		samplingTime = float(0.001);
-		cout << "sampling-time of the notch filter must be greater than 0.001" << endl;
-		cout << "setting sampling-time of the notch filter as 0.001" << endl;
-	}
-	else
-	{
-		tSample = samplingTime;
-	}
+    if (samplingTime < 0.0F) {
+        params.tSample = 0.001F;
+        cout << "sampling-time of the notch filter must be greater than 0.001" << endl;
+        cout << "setting sampling-time of the notch filter as " << params.tSample << endl;
+    } else {
+        params.tSample = samplingTime;
+    }
 
-	if (a < float(0.001))
-	{
-		aFilter = float(0.001);
-		cout << "bandwidth parameter of the notch filter must be greater than 0.001" << endl;
-		cout << "setting bandwidth parameter of the notch filter as 0.001" << endl;
-	}
-	else if (a > float(0.999))
-	{
-		aFilter = float(0.999);
-		cout << "bandwidth parameter of the notch filter must be less than 0.999" << endl;
-		cout << "setting bandwidth parameter of the notch filter as 0.999" << endl;
-	}
-	else
-	{
-		aFilter = a;
-	}
+    if (a < 0.001F) {
+        params.aFilter = 0.001F;
+        cout << "bandwidth parameter of the notch filter must be greater than 0.001" << endl;
+        cout << "setting bandwidth parameter of the notch filter as " << params.aFilter << endl;
+    } else if (a > 0.999F) {
+        params.aFilter = 0.999F;
+        cout << "bandwidth parameter of the notch filter must be less than 0.999" << endl;
+        cout << "setting bandwidth parameter of the notch filter as " << params.aFilter << endl;
+    } else {
+        params.aFilter = a;
+    }
+}
 
-	output = float(0.0);
-	prevOutput = float(0.0);
-	prevPrevOutput = float(0.0);
-	prevInput = float(0.0);
-	prevPrevInput = float(0.0);
-	wNatural = wCutoff * tSample;
+void NotchFilter::CalculateWn()
+{
+    params.wNatural = params.wCutoff * params.tSample;
+}
+
+float NotchFilter::GetOutput()
+{
+    return data.output;
 }

@@ -1,18 +1,31 @@
-#pragma once
+#ifndef LOWPASS_FILTER_H
+#define LOWPASS_FILTER_H
+
 class LowPassFilter
 {
 public:
-	LowPassFilter(float cutoffFreq = 1.0, float samplingTime = 0.01);
-	~LowPassFilter();
-	void update(float input = 0.0);
-	void reconfigure(float cutoffFreq = 1.0, float samplingTime = 0.01);
-	float getFilterOutput();
+    LowPassFilter() = delete;
+	LowPassFilter(float cutoffFreq, float samplingTime);
+	void Update(float input);
+	void Reconfigure(float cutoffFreq, float samplingTime);
+	float GetOutput();
 
 private:
-	float tSample;
-	float wCutoff;
-	float alpha;
-	float prevOutput;
-	float output;
+    void CalculateAlpha();
+    void ParamCheck(float cutoffFreq, float samplingTime);
+
+    struct params {
+        float tSample;
+        float wCutoff;
+        float alpha;
+    } params{};
+
+    struct data {
+        float prevOutput;
+        float output;
+    } data{};
+
 };
+
+#endif
 

@@ -1,21 +1,30 @@
-#pragma once
+#ifndef NOTCH_FILTER_H
+#define NOTCH_FILTER_H
+
 class NotchFilter
 {
 public:
-	NotchFilter(float cutoffFreq = 1.0, float a = 0.5, float samplingTime = 0.01);
-	~NotchFilter();
-	void update(float input = 0.0);
-	void reconfigure(float cutoffFreq = 1.0, float a = 0.5, float samplingTime = 0.01);
-	float getFilterOutput();
+	NotchFilter() = delete;
+	NotchFilter(float cutoffFreq, float a, float samplingTime);
+	void Update(float input);
+	void Reconfigure(float cutoffFreq, float a, float samplingTime);
+	float GetOutput();
 
 private:
-	float tSample;
-	float wCutoff;
-	float wNatural;
-	float aFilter;
-	float output;
-	float prevOutput;
-	float prevPrevOutput;
-	float prevInput;
-	float prevPrevInput;
+    void CheckParams(float cutoffFreq, float a, float samplingTime);
+    void CalculateWn();
+    struct params {
+        float tSample;
+        float wCutoff;
+        float wNatural;
+        float aFilter;
+    } params{};
+
+    struct data {
+        float output;
+        float prevOutput[2];
+        float prevInput[2];
+    } data{};
 };
+
+#endif

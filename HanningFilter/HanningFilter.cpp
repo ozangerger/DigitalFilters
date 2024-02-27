@@ -2,26 +2,14 @@
 #include <iostream>
 using namespace std;
 
-HanningFilter::HanningFilter()
+void HanningFilter::Update(float input)
 {
-	output = float(0.0);
-	prevInput = float(0.0);
-	prevPrevInput = float(0.0);
+	output = 0.25F * (input + 2.0F * prevInputs[0] + prevInputs[1]);
+	prevInputs[1] = prevInputs[0];
+    prevInputs[0] = input;
 }
 
-HanningFilter::~HanningFilter()
+float HanningFilter::GetOutput()
 {
-
-}
-
-void HanningFilter::update(float input)
-{
-	output = (float)0.25 * ((float)1.0 * input + (float)2.0 * prevInput + (float)1.0 * prevPrevInput);
-	prevPrevInput = prevInput;
-	prevInput = input;
-}
-
-float HanningFilter::getFilterOutput()
-{
-	return(output);
+	return output;
 }

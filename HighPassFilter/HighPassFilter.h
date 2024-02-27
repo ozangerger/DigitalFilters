@@ -1,19 +1,30 @@
-#pragma once
+#ifndef HIGHPASS_FILTER_H
+#define HIGHPASS_FILTER_H
+
 class HighPassFilter
 {
 public:
-	HighPassFilter(float cutoffFreq = 1.0, float samplingTime = 0.01);
-	~HighPassFilter();
-	void update(float input = 0.0);
-	void reconfigure(float cutoffFreq = 1.0, float samplingTime = 0.01);
-	float getFilterOutput();
+    HighPassFilter() = delete;
+	HighPassFilter(float cutoffFreq, float samplingTime);
+	void Update(float input);
+	void Reconfigure(float cutoffFreq, float samplingTime);
+	float GetOutput();
 
 private:
-	float tSample;
-	float wCutoff;
-	float alpha;
-	float prevOutput;
-	float output;
-	float prevInput;
+    void CalculateAlpha();
+    void ParamCheck(float cutoffFreq, float samplingTime);
+    struct params {
+        float tSample;
+        float wCutoff;
+        float alpha;
+    } params{};
+
+    struct data {
+        float prevOutput;
+        float output;
+        float prevInput;
+    } data{};
+
 };
 
+#endif
