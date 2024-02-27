@@ -1,4 +1,12 @@
 # DigitalFilters
+
+Pre-requisite to run examples with little effort:
+- macos 14.2.1 / linux-ubuntu >= 18.04 (only tested in macos, but will likely to work on linux provided that the following packages are installed properly)
+- cmake >= 3.20
+- python >= 3.9
+- matplotlib >= 3.7.1
+- pandas >= 2.2.1
+
 This library contains selection of digital filter functions implemented in C++.
  
 As a starting point, low-pass filter, high-pass filter, notch filter and hanning filters have been implemented and examples are provided.
