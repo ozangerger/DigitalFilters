@@ -1,17 +1,21 @@
 #ifndef LOWPASS_FILTER_H
 #define LOWPASS_FILTER_H
 
-class LowPassFilter
-{
+class LowPassFilter {
 public:
     LowPassFilter() = delete;
-	LowPassFilter(float cutoffFreq, float samplingTime);
-	void Update(float input);
-	void Reconfigure(float cutoffFreq, float samplingTime);
-	float GetOutput();
+
+    LowPassFilter(float cutoffFreq, float samplingTime);
+
+    void Update(float input);
+
+    void Reconfigure(float cutoffFreq, float samplingTime);
+
+    float GetOutput();
 
 private:
     void CalculateAlpha();
+
     void ParamCheck(float cutoffFreq, float samplingTime);
 
     struct params {

@@ -1,18 +1,23 @@
 #ifndef NOTCH_FILTER_H
 #define NOTCH_FILTER_H
 
-class NotchFilter
-{
+class NotchFilter {
 public:
-	NotchFilter() = delete;
-	NotchFilter(float cutoffFreq, float a, float samplingTime);
-	void Update(float input);
-	void Reconfigure(float cutoffFreq, float a, float samplingTime);
-	float GetOutput();
+    NotchFilter() = delete;
+
+    NotchFilter(float cutoffFreq, float a, float samplingTime);
+
+    void Update(float input);
+
+    void Reconfigure(float cutoffFreq, float a, float samplingTime);
+
+    float GetOutput();
 
 private:
     void CheckParams(float cutoffFreq, float a, float samplingTime);
+
     void CalculateWn();
+
     struct params {
         float tSample;
         float wCutoff;
