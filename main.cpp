@@ -14,15 +14,19 @@
 using namespace std;
 
 float rad_to_hz(float rad) {
-    return rad * 2.0F * (float)M_PI;
+    return rad * 2.0F * (float) M_PI;
+}
+
+float sinf_t(float amplitude, float freq, float t) {
+    return amplitude * sinf(t * rad_to_hz(freq));
 }
 
 int main() {
     float tSample = 0.01F;
-    HanningFilter   hf;
-    LowPassFilter   lpf(rad_to_hz(10.0F), tSample);
-    HighPassFilter  hpf(rad_to_hz(50.0F), tSample);
-    NotchFilter     nf(rad_to_hz(2.5F), 0.25F, tSample);
+    HanningFilter hf;
+    LowPassFilter lpf(rad_to_hz(10.0F), tSample);
+    HighPassFilter hpf(rad_to_hz(50.0F), tSample);
+    NotchFilter nf(rad_to_hz(2.5F), 0.25F, tSample);
 
     int N = 200;
     vector<float> t(N);
@@ -39,28 +43,27 @@ int main() {
     outfile << ",lpf_raw_data,lpf_data";
     outfile << ",nf_raw_data,nf_data" << endl;
 
-    for (int i = 0; i < N; i++)
-    {
-        t[i] = (float)i * tSample;
-        hf_data[i] = 2.0F * sinf(t[i] * rad_to_hz(1.0F)) +
-                     0.25F * sinf(t[i] * rad_to_hz(15.0F));
+    for (int i = 0; i < N; i++) {
+        t[i] = (float) i * tSample;
+        hf_data[i] = sinf_t(2.0F, 1.0F, t[i]) +
+                     sinf_t(0.25F, 15.0F, t[i]);
         hf.Update(hf_data[i]);
 
-        hpf_data[i] = 0.5F * sinf(t[i] * rad_to_hz(1.0F)) +
-                      0.1F * sinf(t[i] * rad_to_hz(40.0F));
+        hpf_data[i] = sinf_t(0.5F, 1.0F, t[i]) +
+                      sinf_t(0.1F, 40.0F, t[i]);
         hpf.Update(hpf_data[i]);
 
-        lpf_data[i] = 0.5F * sinf(t[i] * rad_to_hz(1.0F)) +
-                      0.1F * sinf(t[i] * rad_to_hz(20.0F));
+        lpf_data[i] = sinf_t(0.5F, 1.0F, t[i]) +
+                      sinf_t(0.1F, 20.0F, t[i]);
         lpf.Update(lpf_data[i]);
 
-        nf_data[i] = 2.0F * sinf(t[i] * rad_to_hz(5.0F));
+        nf_data[i] = sinf_t(2.0F, 5.0F, t[i]);
         nf.Update(nf_data[i]);
 
         outfile << t[i] << "," << hf_data[i] << "," << hf.GetOutput();
         outfile << "," << hpf_data[i] << "," << hpf.GetOutput();
         outfile << "," << lpf_data[i] << "," << lpf.GetOutput();
-        outfile << "," << nf_data[i]  << "," << nf.GetOutput() << endl;
+        outfile << "," << nf_data[i] << "," << nf.GetOutput() << endl;
     }
 
     outfile.close();

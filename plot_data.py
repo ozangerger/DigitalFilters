@@ -4,6 +4,7 @@ import os
 
 
 def main():
+    os.system('rm -r build')
     os.system('cmake -S . -B build')
     os.system('cmake --build build')
     os.system("./build/DigitalFilters")
