@@ -22,29 +22,29 @@ In Figures 5, 6 and 7, pure sine waves which have an amplitude of 2.0 and sampli
 In Figure 8, combination of two discrete sine waves are filtered with hanning filter which averages 3 consecutive inputs to the filter.
 
 # Low-pass Filter Example
-![Example](/LowPassFilter/lpf_plot_2hz.png)
+![Example](/ExamplePlots/lpf_plot_2hz.png)
 <p align="center">Figure 1: Filtered and unfiltered signals, inputs: w_sine1 = 1Hz + w_sine2 = 20Hz, w_c = 2Hz </p>
 
-![Example](/LowPassFilter/lpf_plot_10hz.png)
+![Example](/ExamplePlots/lpf_plot_10hz.png)
 <p align="center">Figure 2: Filtered and unfiltered signals, inputs: w_sine1 = 1Hz + w_sine2 = 20Hz, w_c = 10Hz </p>
 
 # High-pass Filter Example
-![Example](/HighPassFilter/hpf_plot_35hz.png)
+![Example](/ExamplePlots/hpf_plot_35hz.png)
 <p align="center">Figure 3: Filtered and unfiltered signals, inputs: w_sine1 = 1Hz + w_sine2 = 40Hz, w_c = 35Hz</p>
 
-![Example](/HighPassFilter/hpf_plot_50hz.png)
+![Example](/ExamplePlots/hpf_plot_50hz.png)
 <p align="center">Figure 4: Filtered and unfiltered signals, inputs: w_sine1 = 1Hz + w_sine2 = 40Hz, w_c = 50Hz</p>
 
 # Notch Filter Examples
-![Example](/NotchFilter/nf_plot_2p5hz_0p25.png)
+![Example](/ExamplePlots/nf_plot_2p5hz_0p25.png)
 <p align="center">Figure 5: Filtered and unfiltered 2.5Hz sine signal, filter bandwidth parameter = 0.25 </p>
 
-![Example](/NotchFilter/nf_plot_5hz_0p25.png)
+![Example](/ExamplePlots/nf_plot_5hz_0p25.png)
 <p align="center">Figure 6: Filtered and unfiltered 5.0Hz sine signal, filter bandwidth parameter = 0.25 </p>
 
-![Example](/NotchFilter/nf_plot_5hz_0p98.png)
+![Example](/ExamplePlots/nf_plot_5hz_0p98.png)
 <p align="center">Figure 7: Filtered and unfiltered 5Hz sine signal, filter bandwidth parameter = 0.98 </p>
 
 # Hanning Filter Example
-![Example](/HanningFilter/hf_plot.png)
+![Example](/ExamplePlots/hf_plot.png)
 <p align="center">Figure 8: Filtered and unfiltered signals, inputs: w_sine1 = 1Hz + w_sine2 = 15Hz</p>
