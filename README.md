@@ -1,7 +1,7 @@
 # DigitalFilters
-This library will contain selection of digital filter functions implemented in C++.
+This library contains selection of digital filter functions implemented in C++.
  
-For the beginning, low-pass filter, high-pass filter, notch filter and hanning filters have been implemented and tested.
+As a starting point, low-pass filter, high-pass filter, notch filter and hanning filters have been implemented and examples are provided.
 
 Hanning filter outputs a signal which is a scaled average of three successive inputs, with the centre point of the three weighted twice as heavily as its two adjacent neighbours.
 
