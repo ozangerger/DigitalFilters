@@ -1,8 +1,13 @@
 from matplotlib import pyplot as plt
 import pandas as pd
+import os
 
 
 def main():
+    os.system('cmake -S . -B build')
+    os.system('cmake --build build')
+    os.system("./build/DigitalFilters")
+
     df = pd.read_csv('data.csv')
     fig1, ax1 = plt.subplots(tight_layout=True)
     ax1.plot(df['time'], df['hpf_raw_data'], df['time'], df['hpf_data'])
